@@ -50,13 +50,17 @@ function certifyme_quiz_submission_handler(\mod_quiz\event\attempt_submitted $ev
                     // Check for pass.
                     if ($gradeishighenough) {
                         $response = trigger_certifyme($record, $user, $usersgrade);
-                        $certificateevent = \mod_certifyme\event\certificate_created::create(array(
-                                    'objectid' => $record->id,
-                                    'context' => context_module::instance($event->contextinstanceid),
-                                    'relateduserid' => $event->relateduserid,
-                                    'other' => $response->response
-                        ));
-                        $certificateevent->trigger();
+                        if (!$response->error) {
+                            $certificateevent = \mod_certifyme\event\certificate_created::create(array(
+                                        'objectid' => $record->id,
+                                        'context' => context_module::instance($event->contextinstanceid),
+                                        'relateduserid' => $event->relateduserid,
+                                        'other' => $response->response
+                            ));
+                            $certificateevent->trigger();
+                        } else {
+                            mtrace("curl api error" . print_r($response->response, true));
+                        }
                     }
                 }
             }
