@@ -74,22 +74,18 @@ class mod_certifyme_mod_form extends moodleform_mod {
 
         $mform->addElement('text', 'text', get_string('text', 'mod_certifyme'), array('size' => '64'));
         $mform->setType('text', PARAM_TEXT);
-        $mform->addRule('text', null, 'required', null, 'client');
         $mform->addRule('text', get_string('maximumchars', '', 64), 'maxlength', 64, 'client');
 
         $mform->addElement('text', 'licensenumber', get_string('licensenumber', 'mod_certifyme'), array('size' => '64'));
         $mform->setType('licensenumber', PARAM_ALPHANUMEXT);
-        $mform->addRule('licensenumber', null, 'required', null, 'client');
         $mform->addRule('licensenumber', get_string('maximumchars', '', 64), 'maxlength', 64, 'client');
 
-        // $mform->addElement('text', 'verifymode', get_string('verifymode', 'mod_certifyme', array('size' => '64', 'readonly' => 'readonly')));
-        // $mform->setDefault('verifymode', 'Passport Number');
-        // $mform->setType('verifymode', PARAM_TEXT);
-        // $mform->addRule('verifymode', null, 'required', null, 'client');
+        $mform->addElement('text', 'verifymode', get_string('verifymode', 'mod_certifyme', array('size' => '64', 'readonly' => 'readonly')));
+        $mform->setDefault('verifymode', 'Passport Number');
+        $mform->setType('verifymode', PARAM_TEXT);
 
         $mform->addElement('text', 'verifycode', get_string('verifycode', 'mod_certifyme'), array('size' => '64'));
         $mform->setType('verifycode', PARAM_ALPHANUM);
-        $mform->addRule('verifycode', null, 'required', null, 'client');
         $mform->addRule('verifycode', get_string('maximumchars', '', 64), 'maxlength', 64, 'client');
 
         // Load final quiz choices.
